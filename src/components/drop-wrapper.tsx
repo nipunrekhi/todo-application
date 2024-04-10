@@ -45,6 +45,8 @@ export const DropWrapper: React.FC<DropWrapperProps> = ({ children, item }) => {
     };
 
 
+
+
     return (
         <div ref={dropRef as any} className={cn("w-full ", `${getBackgroundColor()}`)}  >
             {modifiedChildren}

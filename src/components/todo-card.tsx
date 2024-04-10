@@ -8,11 +8,11 @@ import moment from 'moment';
 import { ToastAction } from './ui/toast';
 import { useToast } from '../hooks/use-toast';
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Input } from './ui/input';
 import { Plus } from 'lucide-react';
 import { InputValue, Todo, TodoCardProps } from '@/interface';
 import { TodoFilter } from '@/components/todo-filter';
 import { Window } from './window';
+import { checkBadWords } from '@/lib/helper';
 
 const initialInputValue: InputValue = {
     id: uuidv4(),
@@ -27,16 +27,20 @@ export const TodoCard: React.FC<TodoCardProps> = ({ item, todo, setTodo }) => {
 
     const handleUndo = (prevTodo: Todo[]) => setTodo(prevTodo)
 
-    const handleSaveTodo = () => {
+
+
+    const handleSaveTodo = async () => {
         try {
             if (!inputValue?.title) return
 
+            const value = await checkBadWords(inputValue?.title)
             const prevTodo = todo;
 
             const newInputValue = {
                 ...inputValue,
                 date: new Date(),
-                id: uuidv4()
+                id: uuidv4(),
+                title: value
             };
 
             const todos: Todo[] = [...todo];

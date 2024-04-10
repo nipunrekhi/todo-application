@@ -28,6 +28,7 @@ const Todo = (): TodoProps => {
         ))}
       </div>
     </DndProvider>
+    
   )
 }
 
